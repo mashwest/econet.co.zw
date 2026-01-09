@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verifying</title>
+
+<style>
+    :root {
+        --blue: #0A4D8C;
+        --white: #ffffff;
+        --light-gray: #f4f6f8;
+    }
+
+    * {
+        box-sizing: border-box;
+        font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        background: var(--light-gray);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background: var(--white);
+        width: 100%;
+        max-width: 360px;
+        border-radius: 8px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        color: var(--blue);
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .loader {
+        margin: 30px auto 0;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        background: var(--blue);
+        border-radius: 50%;
+        animation: bounce 0.6s infinite alternate;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+        to {
+            transform: translateY(-10px);
+            opacity: 0.6;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+    </div>
+
+    <h1>Verifying Account</h1>
+    <p>
+        Please wait while we securely confirm your details.<br>
+        This may take a moment.
+    </p>
+
+    <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+</div>
+
+</body>
+</html>
